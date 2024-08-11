@@ -1,6 +1,6 @@
 {
     "form": {
-        "question": [
+        "questions": [
             {
                 "id": 0,
                 "identifier": "nombre",
