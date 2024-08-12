@@ -24,113 +24,133 @@
                 "dependence": false
             },
             {
-                "id": 2,
-                "identifier": "trato",
-                "input_type": "radio",
-                "label": "¿Como te trataron?",
-                "answers": [
-                    {
-                        "id": 0,
-                        "label": "Bien",
-                        "value": "a"
-                    },
-                    {
-                        "id": 1,
-                        "label": "Mal",
-                        "value": "b"
-                    }
-                ],
-                "length": "",
-                "custom_length_message": "",
-                "validation": true,
-                "custom_validation_message": "",
-                "dependence": true,
-                "dependence_question": [
-                    {
-                        "id": 0,
-                        "identifier": "motivo",
-                        "input_type": "texto",
-                        "length": "",
-                        "custom_length_message": "",
-                        "label": "¿Por que piensas te trataron mal?",
-                        "validation": true,
-                        "custom_validation_message": "",
-                        "dependence": false
-                    }
-                ]
-            },
+              "id": 2,
+              "identifier": "trato",
+              "input_type": "radio",
+              "label": "¿Como te trataron?",
+              "answers": [
+                {
+                  "id": 0,
+                  "label": "Bien",
+                  "value": "a"
+                },
+                {
+                  "id": 1,
+                  "label": "Mal",
+                  "value": "b"
+                }
+              ],
+              "length": "",
+              "custom_length_message": "",
+              "validation": true,
+              "custom_validation_message": "",
+              "dependence": true,
+              "dependence_data": {
+              "dependence_val": "b",
+              "dependence_question": [
+                {
+                  "id": 0,
+                  "identifier": "motivo",
+                  "input_type": "text",
+                  "length": "",
+                  "custom_length_message": "",
+                  "label": "¿Por que piensas te trataron mal?",
+                  "validation": true,
+                  "custom_validation_message": "",
+                  "dependence": false
+                }
+              ]
+            }
+        },
             {
-                "id": 3,
-                "identifier": "cliente-frecuente",
-                "input_type": "radio",
-                "label": "¿Eres cliente Frecuente?",
-                "answers": [
-                    {
+              "id": 3,
+              "identifier": "cliente-frecuente",
+              "input_type": "radio",
+              "label": "¿Eres cliente Frecuente?",
+              "answers": [
+                {
+                  "id": 0,
+                  "label": "Si",
+                  "value": "a"
+                },
+                {
+                  "id": 1,
+                  "label": "No",
+                  "value": "b"
+                }
+              ],
+              "length": "",
+              "custom_length_message": "",
+              "validation": true,
+              "custom_validation_message": "",
+              "dependence": true,
+              "dependence_data": {
+                "dependence_val": "b",
+                "dependence_question": [
+                  {
+                    "id": 0,
+                    "identifier": "registro-cliente-frecuente",
+                    "input_type": "radio",
+                    "label": "¿Te gustaria registrarte",
+                    "answers": [
+                      {
                         "id": 0,
                         "label": "Si",
                         "value": "a"
-                    },
-                    {
+                      },
+                      {
                         "id": 1,
                         "label": "No",
                         "value": "b"
-                    }
-                ],
-                "length": "",
-                "custom_length_message": "",
-                "validation": true,
-                "custom_validation_message": "",
-                "dependence": true,
-                "dependence_question": [
-                    {
+                      }
+                    ],
+                    "length": "",
+                    "custom_length_message": "",
+                    "validation": true,
+                    "custom_validation_message": "",
+                    "dependence": true,
+                    "dependence_data": {
+                    "dependence_val": "a",
+                    "dependence_question": [
+                      {
                         "id": 0,
-                        "identifier": "motivo",
-                        "input_type": "radio",
-                        "label": "¿Eres cliente Frecuente?",
-                        "answers": [
-                            {
-                                "id": 0,
-                                "label": "Si",
-                                "value": "a"
-                            },
-                            {
-                                "id": 1,
-                                "label": "No",
-                                "value": "b"
-                            }
-                        ],
-                        "length": "",
+                        "identifier": "email",
+                        "input_type": "text",
+                        "length": 10,
                         "custom_length_message": "",
-                        "validation": true,
-                        "custom_validation_message": "",
-                        "dependence": true,
-                        "dependence_question": [
-                            {
-                                "id": 0,
-                                "identifier": "email",
-                                "input_type": "text",
-                                "length": 10,
-                                "custom_length_message": "",
-                                "label": "Ingresa tu correo",
-                                "validation": true,
-                                "custom_validation_message": "",
-                                "dependence": false
-                            }
-
-                        ]
-                    },
-                    {
-                        "id": 0,
-                        "identifier": "newlestter",
-                        "input_type": "texto",
-                        "length": "",
-                        "custom_length_message": "",
-                        "label": "¿Quieres recibir Promociones en tu correo?",
+                        "label": "Ingresa tu correo",
                         "validation": true,
                         "custom_validation_message": "",
                         "dependence": false
-                    }
+                      }
+                    ]
+                }
+                  },
+                  {
+                    "id": 1,
+                    "identifier": "newlestter",
+                    "length": "",
+                    "custom_length_message": "",
+                    "input_type": "radio",
+                    "label": "¿Quieres recibir Promociones en tu correo?",
+                    "answers": [
+                      {
+                        "id": 0,
+                        "label": "Si",
+                        "value": "a"
+                      },
+                      {
+                        "id": 1,
+                        "label": "No",
+                        "value": "b"
+                      }
+                    ],
+                    "validation": true,
+                    "custom_validation_message": "",
+                    "dependence": false
+                  }
                 ]
+              }
             }
         ]
     }
