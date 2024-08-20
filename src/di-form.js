@@ -20,81 +20,34 @@ function buildForm(spotP) {
       let ident = elem_a.identifier;
       let spotDiv = builDiv(spot, 'sectInp_' + type + '_' + ident);
       let labelId = 'sectInpLabel_' + type + '_' + ident;
-      switch (type) {
-        case 'parent':
-          if (!document.getElementById(labelId)) {
-            let spotLabel = builDiv(spotDiv, labelId);
-            buildInputsItems(type, ident, 'label', spotLabel, '', elem_a.label)
-          }
-          break;
-        case 'child':
-          if (!document.getElementById(labelId) && w2==true) {
-            let spotLabel = builDiv(spotDiv, labelId);
-            buildInputsItems(type, ident, 'label', spotLabel, '', elem_a.label)
-          }
-          break;
+      if (!document.getElementById(labelId) && (type == 'child' ? w2 == true : w2 == false)) {
+        let spotLabel = builDiv(spotDiv, labelId);
+        buildInputsItems(type, ident, 'label', spotLabel, '', elem_a.label)
       }
       switch (elem_a.input_type) {
         case 'text':
-          let textIdInput = 'sectInput_' + type + '_' + ident ;
-          impre(type);
-          switch (type) {
-            case 'parent':
-              if ( !document.getElementById(textIdInput)) {
-                let spotInput = builDiv(spotDiv, textIdInput);
-                buildInputsItems(type, ident, elem_a.input_type, spotInput, '');
-              }
-              break;
-              case 'child':
-                impre(w1);
-                impre(w2);
-                impre(ident);
-                if ( !document.getElementById(textIdInput) && w2==true) {
-                  let spotInput = builDiv(spotDiv, textIdInput);
-                  buildInputsItems(type, ident, elem_a.input_type, spotInput, '');
-                }
-                break;  
+          let textIdInput = 'sectInput_' + type + '_' + ident;
+          if (!document.getElementById(textIdInput) && (type == 'child' ? w2 == true : w2 == false)) {
+            let spotInput = builDiv(spotDiv, textIdInput);
+            buildInputsItems(type, ident, elem_a.input_type, spotInput, '');
           }
           break;
         case 'radio':
         case 'checkout':
-          let multiIdInput = 'sectMulti_' + type + '_' + ident;  
-        switch (type) {
-            case 'parent':
-              if (!document.getElementById(multiIdInput)) {
-                let spotMulti = builDiv(spotDiv, multiIdInput);
-                elem_a.answers.forEach(function (elem_b, b) {
-                  let spotMultiInpOpt = builDiv(spotMulti, 'sectMultiOpt_' + type + '_' + ident + '_' + elem_b.value);
-                  buildInputsItems(type, ident, 'label-multi', spotMultiInpOpt, elem_b.value, elem_b.label);
-                  if (elem_a.dependence) {
-                    let dependenceData = JSON.stringify(elem_a.dependence_data);
-                    buildInputsItems(type, ident, elem_a.input_type, spotMultiInpOpt, elem_b.value, '', dependenceData, spotDiv);
-                  } else {
-                    buildInputsItems(type, ident, elem_a.input_type, spotMultiInpOpt, elem_b.value, '', 'NA', '');
-                  }
-                });
+          let multiIdInput = 'sectMulti_' + type + '_' + ident;
+          if (!document.getElementById(multiIdInput) && (type == 'child' ? w2 == true : w2 == false)) {
+            let spotMulti = builDiv(spotDiv, multiIdInput);
+            elem_a.answers.forEach(function (elem_b, b) {
+              let spotMultiInpOpt = builDiv(spotMulti, 'sectMultiOpt_' + type + '_' + ident + '_' + elem_b.value);
+              buildInputsItems(type, ident, 'label-multi', spotMultiInpOpt, elem_b.value, elem_b.label);
+              if (elem_a.dependence) {
+                let dependenceData = JSON.stringify(elem_a.dependence_data);
+                buildInputsItems(type, ident, elem_a.input_type, spotMultiInpOpt, elem_b.value, '', dependenceData, spotDiv);
+              } else {
+                buildInputsItems(type, ident, elem_a.input_type, spotMultiInpOpt, elem_b.value, '', 'NA', '');
               }
-              
-              break;
-            case 'child':
-              if (!document.getElementById(multiIdInput) && w2==true) {
-                let spotMulti = builDiv(spotDiv, multiIdInput);
-                elem_a.answers.forEach(function (elem_b, b) {
-                  let spotMultiInpOpt = builDiv(spotMulti, 'sectMultiOpt_' + type + '_' + ident + '_' + elem_b.value);
-                  buildInputsItems(type, ident, 'label-multi', spotMultiInpOpt, elem_b.value, elem_b.label);
-                  if (elem_a.dependence) {
-                    let dependenceData = JSON.stringify(elem_a.dependence_data);
-                    buildInputsItems(type, ident, elem_a.input_type, spotMultiInpOpt, elem_b.value, '', dependenceData, spotDiv);
-                  } else {
-                    buildInputsItems(type, ident, elem_a.input_type, spotMultiInpOpt, elem_b.value, '', 'NA', '');
-                  }
-                });
-              }
-
-              break;
+            });
           }
-          
-          
           break;
       }
     });
@@ -137,13 +90,9 @@ function buildForm(spotP) {
   }
 
   function manageDependence(obj, ident, val, spotDep) {
-    if(obj !='NA'){
+    if (obj != 'NA') {
       const dataDependence = JSON.parse(obj);
-      if (dataDependence.dependence_val == val) {
-        buildFormDivInp(dataDependence.dependence_question,'child', spotDep, ident, true);
-      }else{
-        buildFormDivInp(dataDependence.dependence_question,'child', spotDep, ident, false);
-      }
+      buildFormDivInp(dataDependence.dependence_question, 'child', spotDep, ident, (dataDependence.dependence_val == val ? true : false));
     }
   }
 
