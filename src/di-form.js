@@ -91,8 +91,18 @@ function buildForm(spotP) {
 
   function manageDependence(obj, ident, val, spotDep) {
     if (obj != 'NA') {
-      const dataDependence = JSON.parse(obj);
-      buildFormDivInp(dataDependence.dependence_question, 'child', spotDep, ident, (dataDependence.dependence_val == val ? true : false));
+      let dataDependence = JSON.parse(obj);
+      let arrayQuestions = [];
+      dataDependence.dependence_question.forEach(function (elem_c, c) {
+        arrayQuestions.push(elem_c);
+      })
+      if (dataDependence.dependence_val == val) {
+        buildFormDivInp(dataDependence.dependence_question, 'child', spotDep, ident, true);
+      } else {
+        arrayQuestions.forEach(function (elem_d, d) {
+          removeDiv('sectInp_child_' + elem_d.identifier);
+        })
+      }
     }
   }
 
@@ -104,6 +114,16 @@ function buildForm(spotP) {
     let spotDiv = document.getElementById(ident);
     return spotDiv;
   }
+
+  function removeDiv(id) {
+    let divCh = document.getElementById(id);
+    if (divCh !== null) {
+      while (divCh.hasChildNodes()) {
+        divCh.removeChild(divCh.lastChild);
+      }
+    }
+  }
+
 }
 
 function impre(element) {
