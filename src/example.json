@@ -152,6 +152,15 @@
                 ]
               }
             }
+        ],
+        "submits":[
+          {
+            "id": 0,
+            "identifier": "enviar",
+            "input_type": "button",
+            "label": "Enviar",
+            "dependence": false
+          }
         ]
     }
 }

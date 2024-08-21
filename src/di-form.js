@@ -5,6 +5,9 @@ class Extract_data {
   questions() {
     return this.dataMain.form.questions;
   }
+  submits() {
+    return this.dataMain.form.submits;
+  }
 }
 const dataMain = JSON.parse(form_b00);
 const dataForm = new Extract_data(dataMain);
@@ -12,18 +15,28 @@ const dataForm = new Extract_data(dataMain);
 
 function buildForm(spotP) {
   impre(dataForm.questions());
+  impre(dataForm.submits());
   const spot = document.getElementById(spotP);
-  buildFormDivInp(dataForm.questions(), 'parent', spot, '', '')
 
-  
+  buildFormDivInp(dataForm.questions(), 'parent', spot, '', '');
+  buildFormDivInp(dataForm.submits(), 'submit', spot, '', '');
+
   function buildFormDivInp(array, type, spot, w1, w2) {
+    let spotDivMain = builDiv(spot, (type == 'submit' ? 'sect_submit' : 'sect_questions'));    
     array.forEach(function (elem_a, a) {
       let ident = elem_a.identifier;
-      let spotDiv = builDiv(spot, 'sectInp_' + type + '_' + ident);
-      let labelId = 'sectInpLabel_' + type + '_' + ident;
-      if (!document.getElementById(labelId) && (type == 'child' ? w2 == true : w2 == false)) {
-        let spotLabel = builDiv(spotDiv, labelId);
-        buildInputsItems(type, ident, 'label', spotLabel, '', elem_a.label)
+      let spotDiv = builDiv(spotDivMain, 'sectQ_' + ident);
+      
+      if (type == 'parent' || type == 'child'){
+        let spotDivQ = builDiv(spotDiv, 'sectInp_' + type + '_' + ident);
+        let labelId = 'sectInpLabel_' + type + '_' + ident;
+        if (!document.getElementById(labelId) && (type == 'child' ? w2 == true : w2 == false)) {
+          let spotLabel = builDiv(spotDivQ, labelId);
+          buildInputsItems(type, ident, 'label', spotLabel, '', elem_a.label);
+        }
+      }
+      if(type=='submit') {
+        buildInputsItems(type, ident, 'button', spotDiv, '', elem_a.label);
       }
       switch (elem_a.input_type) {
         case 'text':
@@ -43,7 +56,7 @@ function buildForm(spotP) {
               buildInputsItems(type, ident, 'label-multi', spotMultiInpOpt, elem_b.value, elem_b.label);
               if (elem_a.dependence) {
                 let dependenceData = JSON.stringify(elem_a.dependence_data);
-                buildInputsItems(type, ident, elem_a.input_type, spotMultiInpOpt, elem_b.value, '', dependenceData, spotDiv);
+                buildInputsItems(type, ident, elem_a.input_type, spotMultiInpOpt, elem_b.value, '', dependenceData, spotDivMain);
               } else {
                 buildInputsItems(type, ident, elem_a.input_type, spotMultiInpOpt, elem_b.value, '', 'NA', '');
               }
@@ -86,6 +99,15 @@ function buildForm(spotP) {
         labelMultiF.innerHTML = lab;
         let spotMultiLabel = builDiv(spot, 'sectMultiLabel_' + type + '_' + ident + '_' + val);
         spotMultiLabel.appendChild(labelMultiF);
+        break;
+      case 'button':
+        let inputButton = document.createElement("input");
+        inputButton.type = typeInp;
+        inputButton.name = 'inp_' + type + '_' + ident;
+        inputButton.id = 'inp_' + type + '_' + ident;
+        inputButton.value = lab;
+        inputButton.onclick = function () { dataValide(w01, ident, val, w02) };
+        spot.appendChild(inputButton);
         break;
     }
   }
