@@ -15,6 +15,7 @@ function buildForm(spotP) {
   const spot = document.getElementById(spotP);
   buildFormDivInp(dataForm.questions(), 'parent', spot, '', '')
 
+  
   function buildFormDivInp(array, type, spot, w1, w2) {
     array.forEach(function (elem_a, a) {
       let ident = elem_a.identifier;
