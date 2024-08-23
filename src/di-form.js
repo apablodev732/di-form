@@ -13,13 +13,23 @@ const dataMain = JSON.parse(form_b00);
 const dataForm = new Extract_data(dataMain);
 //impre(dataForm);
 
+let mainTime ={};
+mainTime['objbuilDiv'] = [];
+
 function buildForm(spotP) {
   impre(dataForm.questions());
   impre(dataForm.submits());
+
   const spot = document.getElementById(spotP);
 
   buildFormDivInp(dataForm.questions(), 'parent', spot, '', '');
+
   buildFormDivInp(dataForm.submits(), 'submit', spot, '', '');
+
+
+
+
+
 
   function buildFormDivInp(array, type, spot, w1, w2) {
     let spotDivMain = builDiv(spot, (type == 'submit' ? 'sect_submit' : 'sect_questions'));    
@@ -130,11 +140,16 @@ function buildForm(spotP) {
   }
 
   function builDiv(spot, ident) {
+    let data_builDiv = false;
     let div = document.createElement("div");
     div.name = ident;
     div.id = ident;
     spot.appendChild(div);
     let spotDiv = document.getElementById(ident);
+    if (spotDiv){
+      data_builDiv = JSON.stringify(spotDiv)
+    }
+    mainTime.objbuilDiv.push(data_builDiv);
     return spotDiv;
   }
 
